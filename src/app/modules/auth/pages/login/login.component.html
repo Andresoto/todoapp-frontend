@@ -1,0 +1,35 @@
+<div class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">
+                    <img src="../../../../../assets/images/logo-atom-chat.png" alt="logo Atom" />
+                </div>
+                <h1 class="title">To do App</h1>
+                <p class="description">Ingresa tu email para acceder a tus tareas</p>
+            </div>
+            <div class="login-content">
+                <form (ngSubmit)="handleSubmit()" [formGroup]="form">
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Correo electrónico</mat-label>
+                            <input
+                                matInput
+                                placeholder="tu@email.com"
+                                formControlName="email"
+                                (blur)="updateErrorMessage()"
+                                required
+                            />
+                            @if (form.get("email")?.invalid) {
+                                <mat-error>{{ errorMessage }}</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <button mat-flat-button type="submit" color="primary" [disabled]="isLoading || form.get('email')?.invalid">
+                        {{ isLoading ? "Iniciando sesión..." : "Ingresar" }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
