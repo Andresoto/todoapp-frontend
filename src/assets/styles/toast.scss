@@ -1,0 +1,86 @@
+.mat-mdc-snack-bar-container {
+  &.success-toast {
+    --mdc-snackbar-container-color: #4caf50;
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+
+    .mat-mdc-snack-bar-surface {
+      background-color: #4caf50 !important;
+      color: white !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+      color: white !important;
+    }
+
+    .mat-mdc-button {
+      --mdc-text-button-label-text-color: white;
+      color: white !important;
+    }
+  }
+
+  &.error-toast {
+    --mdc-snackbar-container-color: #f44336;
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+
+    .mat-mdc-snack-bar-surface {
+      background-color: #f44336 !important;
+      color: white !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+      color: white !important;
+    }
+
+    .mat-mdc-button {
+      --mdc-text-button-label-text-color: white;
+      color: white !important;
+    }
+  }
+
+  &.info-toast {
+    --mdc-snackbar-container-color: #2196f3;
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+
+    .mat-mdc-snack-bar-surface {
+      background-color: #2196f3 !important;
+      color: white !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+      color: white !important;
+    }
+
+    .mat-mdc-button {
+      --mdc-text-button-label-text-color: white;
+      color: white !important;
+    }
+  }
+
+  &.warning-toast {
+    --mdc-snackbar-container-color: #ff9800;
+    --mat-mdc-snack-bar-button-color: #ffffff;
+    --mdc-snackbar-supporting-text-color: #ffffff;
+
+    .mat-mdc-snack-bar-surface {
+      background-color: #ff9800 !important;
+      color: white !important;
+    }
+
+    .mat-mdc-snack-bar-label {
+      color: white !important;
+    }
+
+    .mat-mdc-button {
+      --mdc-text-button-label-text-color: white;
+      color: white !important;
+    }
+  }
+  .mdc-snackbar__label {
+      padding-top: 24px;
+      padding-bottom: 24px;
+      padding-left: 24px;
+  }
+}

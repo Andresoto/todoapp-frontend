@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="header-modal">
+  <mat-icon class="close-icon" aria-hidden="false" aria-label="close" fontIcon="close" (click)="dialogRef.close(false)"></mat-icon>
+</h2>
+<mat-dialog-content class="mat-typography modal-content">
+  <div class="icon-container">
+    <mat-icon class="icon" fontIcon="person_add"></mat-icon>
+  </div>
+  <div>
+    <div class="content">
+      No encontramos una cuenta asociada a <strong>{{data}}</strong>.
+      ¿Deseas crear una nueva cuenta con este correo?
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-actions" align="center">
+  <button mat-flat-button mat-dialog-close>Cancelar</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Crear cuenta</button>
+</mat-dialog-actions>

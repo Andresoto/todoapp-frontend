@@ -12,11 +12,13 @@ export interface LoginResponse {
     url: string;
     ok: boolean;
     type: number;
-    body: {
-        id: string;
-        email: string;
-        nombre: string;
-    };
+    body: User;
+}
+
+export interface User {
+    id: string;
+    email: string;
+    nombre: string;
 }
 
 @Injectable({
@@ -28,5 +30,9 @@ export class AuthService {
 
     login(email: string): Observable<HttpResponse<LoginResponse["body"]>> {
         return this.http.post<LoginResponse["body"]>(`${this.url}/auth/login`, { email }, { observe: "response" });
+    }
+
+    register(email: string): Observable<User> {
+        return this.http.post<User>(`${this.url}/auth/register`, { email });
     }
 }

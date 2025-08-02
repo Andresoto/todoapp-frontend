@@ -1,5 +1,10 @@
 @import "assets/styles/theme";
+@import "assets/styles/toast.scss";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Inter, "Helvetica Neue", sans-serif; }
 * { box-sizing: border-box; }
+
+:root {
+  --primary-color: #ff6600;
+}
