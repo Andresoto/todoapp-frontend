@@ -139,3 +139,11 @@
         }
     }
 }
+
+@media (max-width: 576px) {
+    .task-button {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+}
