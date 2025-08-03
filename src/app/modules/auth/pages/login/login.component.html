@@ -21,12 +21,12 @@
                                 required
                             />
                             @if (form.get("email")?.invalid) {
-                                <mat-error>{{ errorMessage }}</mat-error>
+                                <mat-error>{{ errorMessage() }}</mat-error>
                             }
                         </mat-form-field>
                     </div>
-                    <button mat-flat-button type="submit" color="primary" [disabled]="isLoading || form.get('email')?.invalid">
-                        {{ isLoading ? "Iniciando sesión..." : "Ingresar" }}
+                    <button mat-flat-button type="submit" color="primary" [disabled]="isLoading() || form.invalid">
+                        {{ isLoading() ? "Iniciando sesión..." : "Ingresar" }}
                     </button>
                 </form>
             </div>

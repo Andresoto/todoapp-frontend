@@ -1,5 +1,5 @@
 import { HttpStatusCode } from "@angular/common/http";
-import { Component, inject } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
@@ -33,9 +33,11 @@ export class LoginComponent {
     fb = inject(FormBuilder);
     dialog = inject(MatDialog);
     toastService = inject(ToastService);
+
     form!: FormGroup;
-    isLoading = false;
-    errorMessage = "";
+    isLoading = signal(false);
+    errorMessage = signal("");
+    formValid = signal(false);
 
     constructor() {
         this.buildForm();
@@ -48,11 +50,11 @@ export class LoginComponent {
     }
 
     handleSubmit() {
-        this.isLoading = true;
+        this.isLoading.set(true);
         const formValue = this.form.getRawValue();
         this.authService.login(formValue.email).subscribe({
             next: response => {
-                this.isLoading = false;
+                this.isLoading.set(false);
                 if (response.status === HttpStatusCode.NoContent) {
                     this.registerEmail(formValue.email);
                 } else {
@@ -62,7 +64,7 @@ export class LoginComponent {
                 }
             },
             error: () => {
-                this.isLoading = false;
+                this.isLoading.set(false);
                 this.toastService.showError("Error al iniciar sesión. Por favor intenta nuevamente");
             }
         });
@@ -70,11 +72,11 @@ export class LoginComponent {
 
     updateErrorMessage() {
         if (this.form.get("email")?.hasError("required")) {
-            this.errorMessage = "Este campo es obligatorio";
+            this.errorMessage.set("Este campo es obligatorio");
         } else if (this.form.get("email")?.hasError("pattern")) {
-            this.errorMessage = "Ingrese un correo valido";
+            this.errorMessage.set("Ingrese un correo valido");
         } else {
-            this.errorMessage = "";
+            this.errorMessage.set("");
         }
     }
 
