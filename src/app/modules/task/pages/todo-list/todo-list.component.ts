@@ -1,10 +1,12 @@
 import { DecimalPipe } from "@angular/common";
 import { Component, computed, inject, OnInit, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { MatChipsModule } from "@angular/material/chips";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { Router } from "@angular/router";
 
+import { FilterPipe } from "../../../../shared/pipes/filter.pipe";
 import { ToastService } from "../../../../shared/services/toast.service";
 import { formatTimestamp } from "../../../../shared/utils/formatTime";
 import { TaskFormModalComponent } from "../../components/task-form-modal/task-form-modal.component";
@@ -15,7 +17,7 @@ import { TaskService } from "../../services/task.service";
 @Component({
     selector: "app-todo-list",
     standalone: true,
-    imports: [TaskItemComponent, DecimalPipe, MatButtonModule, MatIconModule],
+    imports: [TaskItemComponent, DecimalPipe, MatButtonModule, MatIconModule, MatChipsModule, FilterPipe],
     templateUrl: "./todo-list.component.html",
     styleUrl: "./todo-list.component.scss"
 })
@@ -28,6 +30,12 @@ export class TodoListComponent implements OnInit {
     userEmail = signal<string>("");
     isFormOpen = signal<boolean>(false);
     editingTask = signal<Task | null>(null);
+    filters = signal<{ label: string; value: string }[]>([
+        { label: "Todas", value: "all" },
+        { label: "Pendientes", value: "pending" },
+        { label: "Completadas", value: "completed" }
+    ]);
+    filterSelected = signal<string>("all");
 
     completedTasks = computed(() => this.tasks().filter(task => task.completed).length);
     totalTasks = computed(() => this.tasks().length);
@@ -51,6 +59,12 @@ export class TodoListComponent implements OnInit {
                 this.toastService.showError("Error al intentar cargar las tareas");
             }
         });
+    }
+
+    onFilterChange(filterValue: string) {
+        if (this.filterSelected() !== filterValue) {
+            this.filterSelected.set(filterValue);
+        }
     }
 
     handleToggleComplete(task: Task) {

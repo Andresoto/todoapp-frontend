@@ -10,7 +10,7 @@
             </div>
             <div class="header-actions">
                 <div class="progress-text">{{ completedTasks() }} de {{ totalTasks() }} completadas</div>
-                <button mat-icon-button aria-label="Cerrar sesión"  (click)="handleLogout()">
+                <button mat-icon-button aria-label="Cerrar sesión" (click)="handleLogout()">
                     <mat-icon aria-hidden="false" fontIcon="exit_to_app"></mat-icon>
                 </button>
             </div>
@@ -38,10 +38,21 @@
                 <mat-icon aria-hidden="false" aria-label="Nueva tarea" fontIcon="add"></mat-icon>
                 Nueva tarea
             </button>
+            <div>
+                <mat-chip-set aria-label="filtros">
+                    @for (chip of filters(); track chip.value) {
+                        <mat-chip
+                            [class.mat-mdc-chip-selected]="filterSelected() === chip.value"
+                            (click)="onFilterChange(chip.value)">
+                            {{ chip.label }}
+                        </mat-chip>
+                    }
+                </mat-chip-set>
+            </div>
         </div>
 
         <div class="task-list">
-            @for (task of tasks(); track task.id) {
+            @for (task of tasks() | filter: filterSelected() ; track task.id) {
                 <app-task-item
                     [task]="task"
                     (toggleComplete)="handleToggleComplete(task)"
