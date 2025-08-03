@@ -10,9 +10,8 @@
             </div>
             <div class="header-actions">
                 <div class="progress-text">{{ completedTasks() }} de {{ totalTasks() }} completadas</div>
-                <button mat-raised-button (click)="handleLogout()">
-                    <mat-icon aria-hidden="false" aria-label="Cerrar sesión" fontIcon="exit_to_app"></mat-icon>
-                    Cerrar sesión
+                <button mat-icon-button aria-label="Cerrar sesión"  (click)="handleLogout()">
+                    <mat-icon aria-hidden="false" fontIcon="exit_to_app"></mat-icon>
                 </button>
             </div>
         </div>
@@ -35,7 +34,7 @@
         </div>
 
         <div class="task-button">
-            <button mat-raised-button color="primary" (click)="setIsFormOpen()">
+            <button mat-raised-button color="primary" (click)="createTask()">
                 <mat-icon aria-hidden="false" aria-label="Nueva tarea" fontIcon="add"></mat-icon>
                 Nueva tarea
             </button>
@@ -59,5 +58,5 @@
                 </div>
             }
         </div>
-      </div>
+    </div>
 </div>

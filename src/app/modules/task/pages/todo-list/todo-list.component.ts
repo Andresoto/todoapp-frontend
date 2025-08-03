@@ -1,12 +1,16 @@
 import { DecimalPipe } from "@angular/common";
 import { Component, computed, inject, OnInit, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { Router } from "@angular/router";
 
 import { ToastService } from "../../../../shared/services/toast.service";
+import { formatTimestamp } from "../../../../shared/utils/formatTime";
+import { TaskFormModalComponent } from "../../components/task-form-modal/task-form-modal.component";
 import { TaskItemComponent } from "../../components/task-item/task-item.component";
-import { Task, TaskService } from "../../services/task.service";
+import { Task } from "../../interfaces/task.interface";
+import { TaskService } from "../../services/task.service";
 
 @Component({
     selector: "app-todo-list",
@@ -18,6 +22,7 @@ import { Task, TaskService } from "../../services/task.service";
 export class TodoListComponent implements OnInit {
     taskService = inject(TaskService);
     toastService = inject(ToastService);
+    dialog = inject(MatDialog);
 
     tasks = signal<Task[]>([]);
     userEmail = signal<string>("");
@@ -38,7 +43,7 @@ export class TodoListComponent implements OnInit {
             next: tasks => {
                 const formattedTasks = tasks.map(task => ({
                     ...task,
-                    date: TodoListComponent.formatTimestamp(task.createdAt)
+                    date: formatTimestamp(task.createdAt)
                 }));
                 this.tasks.set(formattedTasks);
             },
@@ -51,7 +56,9 @@ export class TodoListComponent implements OnInit {
     handleToggleComplete(task: Task) {
         this.taskService.updateTask(task).subscribe({
             next: resp => {
-                this.tasks.update(currentTasks => currentTasks.map(item => (item.id === resp.id ? resp : item)));
+                this.tasks.update(currentTasks =>
+                    currentTasks.map(item => (item.id === resp.id ? { ...item, completed: resp.completed } : item))
+                );
             },
             error: () => {
                 this.toastService.showError("Error al intentar actualizar la tarea");
@@ -80,15 +87,38 @@ export class TodoListComponent implements OnInit {
     }
 
     openEditForm(task: Task) {
-        // TODO: Implementar la lógica para abrir el formulario de edición
+        const dialogRef = this.dialog.open(TaskFormModalComponent, {
+            data: {
+                isEditing: true,
+                id: task.id,
+                title: task.title,
+                description: task.description,
+                completed: task.completed
+            },
+            width: "450px"
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.getTasks();
+            }
+        });
     }
 
-    setIsFormOpen() {
-        // TODO: Implementar la lógica para abrir el formulario de creación de tareas
-    }
+    createTask() {
+        const dialogRef = this.dialog.open(TaskFormModalComponent, {
+            data: {
+                title: "",
+                description: "",
+                completed: false
+            },
+            width: "450px"
+        });
 
-    private static formatTimestamp(timestamp: { _seconds: number; _nanoseconds: number }): Date {
-        // eslint-disable-next-line no-underscore-dangle
-        return new Date(timestamp._seconds * 1000);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.getTasks();
+            }
+        });
     }
 }

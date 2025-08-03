@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatIconModule } from "@angular/material/icon";
 
-import { Task } from "../../services/task.service";
+import { Task } from "../../interfaces/task.interface";
 
 @Component({
     selector: "app-task-item",

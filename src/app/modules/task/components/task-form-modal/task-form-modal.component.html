@@ -1,0 +1,34 @@
+
+<h2 mat-dialog-title class="header-modal">
+  <span>{{ data.isEditing ? "Editar Tarea" : "Crear Tarea" }}</span>
+  <mat-icon class="close-icon" aria-hidden="false" aria-label="close" fontIcon="close" (click)="dialogRef.close(false)"></mat-icon>
+</h2>
+<mat-dialog-content class="dialog-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Título</mat-label>
+                <input matInput formControlName="title" placeholder="Título de la tarea" />
+                @if (form.get("title")?.hasError("required")) {
+                    <mat-error>Título es requerido</mat-error>
+                }
+            </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="description" placeholder="Descripción de la tarea" rows="3"></textarea>
+                @if (form.get("description")?.hasError("required")) {
+                    <mat-error>Descripción es requerida</mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="actions">
+            <button mat-button type="button" (click)="dialogRef.close(false)">Cancelar</button>
+            <button mat-flat-button color="primary" type="submit">
+                {{ data.isEditing ? "Actualizar" : "Crear" }}
+            </button>
+        </div>
+    </form>
+</mat-dialog-content>

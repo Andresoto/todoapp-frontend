@@ -2,17 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-export interface Task {
-    id: string;
-    title: string;
-    description: string;
-    createdAt: {
-        _seconds: number;
-        _nanoseconds: number;
-    };
-    date: Date;
-    completed: boolean;
-}
+import { Task, TaskFormData } from "../interfaces/task.interface";
 
 @Injectable({
     providedIn: "root"
@@ -26,11 +16,11 @@ export class TaskService {
         return this.http.get<Task[]>(`${this.url}/tasks`);
     }
 
-    createTask(task: Task): Observable<Task> {
+    createTask(task: TaskFormData): Observable<Task> {
         return this.http.post<Task>(`${this.url}/tasks`, task);
     }
 
-    updateTask(task: Partial<Task>): Observable<Task> {
+    updateTask(task: Partial<TaskFormData>): Observable<Task> {
         return this.http.patch<Task>(`${this.url}/tasks/${task.id}`, task);
     }
 
