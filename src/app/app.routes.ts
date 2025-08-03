@@ -10,8 +10,12 @@ export const routes: Routes = [
         loadComponent: () => import("./modules/auth/pages/login/login.component").then(m => m.LoginComponent)
     },
     {
+        path: "tasks",
+        loadComponent: () => import("./modules/task/pages/todo-list/todo-list.component").then(m => m.TodoListComponent)
+    },
+    {
         path: "**",
-        redirectTo: "/home",
+        redirectTo: "/login",
         pathMatch: "full"
     }
 ];

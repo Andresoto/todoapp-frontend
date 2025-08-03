@@ -1,0 +1,63 @@
+<div class="tasks-page">
+    <div class="tasks-container">
+        <div class="header">
+            <div>
+                <h1 class="title">
+                    <mat-icon fontIcon="library_add_check"></mat-icon>
+                    To Do App
+                </h1>
+                <p class="subtitle">Bienvenido, {{ userEmail() }}</p>
+            </div>
+            <div class="header-actions">
+                <div class="progress-text">{{ completedTasks() }} de {{ totalTasks() }} completadas</div>
+                <button mat-raised-button (click)="handleLogout()">
+                    <mat-icon aria-hidden="false" aria-label="Cerrar sesión" fontIcon="exit_to_app"></mat-icon>
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <div class="progress-header">
+                    <span class="label">Progreso</span>
+                    <span class="percentage">
+                        {{ totalTasks() > 0 ? ((completedTasks() / totalTasks()) * 100 | number: "1.0-0") : 0 }}%
+                    </span>
+                </div>
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        [style.width]="totalTasks() > 0 ? (completedTasks() / totalTasks()) * 100 + '%' : '0%'"
+                    ></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="task-button">
+            <button mat-raised-button color="primary" (click)="setIsFormOpen()">
+                <mat-icon aria-hidden="false" aria-label="Nueva tarea" fontIcon="add"></mat-icon>
+                Nueva tarea
+            </button>
+        </div>
+
+        <div class="task-list">
+            @for (task of tasks(); track task.id) {
+                <app-task-item
+                    [task]="task"
+                    (toggleComplete)="handleToggleComplete(task)"
+                    (edit)="openEditForm(task)"
+                    (delete)="handleDeleteTask(task.id)"
+                >
+                </app-task-item>
+            } @empty {
+                <div class="card empty-card">
+                    <div class="card-content text-center">
+                        <h3 class="empty-title">No hay tareas</h3>
+                        <p class="empty-description">Agrega tu primera tarea para empezar</p>
+                    </div>
+                </div>
+            }
+        </div>
+      </div>
+</div>
