@@ -17,11 +17,12 @@
                                 matInput
                                 placeholder="tu@email.com"
                                 formControlName="email"
-                                (blur)="updateErrorMessage()"
-                                required
                             />
-                            @if (form.get("email")?.invalid) {
-                                <mat-error>{{ errorMessage() }}</mat-error>
+                            @if (form.get("email")?.errors?.['required'] && form.get("email")?.touched) {
+                                <mat-error>Este campo es obligatorio</mat-error>
+                            }
+                            @if (form.get("email")?.errors?.['pattern'] && form.get("email")?.touched) {
+                                <mat-error>Ingrese un correo válido</mat-error>
                             }
                         </mat-form-field>
                     </div>

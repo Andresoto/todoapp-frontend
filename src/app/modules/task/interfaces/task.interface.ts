@@ -2,11 +2,8 @@ export interface Task {
     id: string;
     title: string;
     description: string;
-    createdAt: {
-        _seconds: number;
-        _nanoseconds: number;
-    };
-    date: Date;
+    createdAt: Date;
+    updatedAt?: Date;
     completed: boolean;
 }
 

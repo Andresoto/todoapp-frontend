@@ -36,7 +36,6 @@ export class LoginComponent {
 
     form!: FormGroup;
     isLoading = signal(false);
-    errorMessage = signal("");
     formValid = signal(false);
 
     constructor() {
@@ -59,6 +58,7 @@ export class LoginComponent {
                     this.registerEmail(formValue.email);
                 } else {
                     localStorage.setItem("userId", response.body!.id);
+                    localStorage.setItem("userEmail", response.body!.email);
                     this.toastService.showSuccess("¡Bienvenido! Has iniciado sesión correctamente");
                     this.router.navigate(["/tasks"]);
                 }
@@ -68,16 +68,6 @@ export class LoginComponent {
                 this.toastService.showError("Error al iniciar sesión. Por favor intenta nuevamente");
             }
         });
-    }
-
-    updateErrorMessage() {
-        if (this.form.get("email")?.hasError("required")) {
-            this.errorMessage.set("Este campo es obligatorio");
-        } else if (this.form.get("email")?.hasError("pattern")) {
-            this.errorMessage.set("Ingrese un correo valido");
-        } else {
-            this.errorMessage.set("");
-        }
     }
 
     registerEmail(email: string) {
@@ -91,6 +81,7 @@ export class LoginComponent {
                 this.authService.register(email).subscribe({
                     next: resp => {
                         localStorage.setItem("userId", resp.id);
+                        localStorage.setItem("userEmail", resp.email);
                         this.toastService.showSuccess("¡Registro exitoso! Bienvenido");
                         this.router.navigate(["/tasks"]);
                     },

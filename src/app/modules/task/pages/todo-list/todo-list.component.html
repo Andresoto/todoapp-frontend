@@ -38,7 +38,7 @@
                 <mat-icon aria-hidden="false" aria-label="Nueva tarea" fontIcon="add"></mat-icon>
                 Nueva tarea
             </button>
-            <div>
+            <div [ngClass]="{'disabled': !tasks().length}">
                 <mat-chip-set aria-label="filtros">
                     @for (chip of filters(); track chip.value) {
                         <mat-chip

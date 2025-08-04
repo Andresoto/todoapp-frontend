@@ -1,4 +1,4 @@
-import { DecimalPipe } from "@angular/common";
+import { DecimalPipe, NgClass } from "@angular/common";
 import { Component, computed, inject, OnInit, signal } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatChipsModule } from "@angular/material/chips";
@@ -8,7 +8,6 @@ import { Router } from "@angular/router";
 
 import { FilterPipe } from "../../../../shared/pipes/filter.pipe";
 import { ToastService } from "../../../../shared/services/toast.service";
-import { formatTimestamp } from "../../../../shared/utils/formatTime";
 import { TaskFormModalComponent } from "../../components/task-form-modal/task-form-modal.component";
 import { TaskItemComponent } from "../../components/task-item/task-item.component";
 import { Task } from "../../interfaces/task.interface";
@@ -17,7 +16,7 @@ import { TaskService } from "../../services/task.service";
 @Component({
     selector: "app-todo-list",
     standalone: true,
-    imports: [TaskItemComponent, DecimalPipe, MatButtonModule, MatIconModule, MatChipsModule, FilterPipe],
+    imports: [TaskItemComponent, DecimalPipe, MatButtonModule, MatIconModule, MatChipsModule, FilterPipe, NgClass],
     templateUrl: "./todo-list.component.html",
     styleUrl: "./todo-list.component.scss"
 })
@@ -44,16 +43,14 @@ export class TodoListComponent implements OnInit {
         this.getTasks();
     }
 
-    constructor(private router: Router) {}
+    constructor(private router: Router) {
+        this.userEmail.set(localStorage.getItem("userEmail") || "");
+    }
 
     getTasks() {
         this.taskService.getTasks().subscribe({
             next: tasks => {
-                const formattedTasks = tasks.map(task => ({
-                    ...task,
-                    date: formatTimestamp(task.createdAt)
-                }));
-                this.tasks.set(formattedTasks);
+                this.tasks.set(tasks);
             },
             error: () => {
                 this.toastService.showError("Error al intentar cargar las tareas");

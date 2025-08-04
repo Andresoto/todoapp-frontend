@@ -18,10 +18,6 @@
     align-items: start;
 }
 
-.task-checkbox {
-    margin-top: 0.3rem;
-}
-
 .task-details {
     flex: 1;
 }
@@ -35,6 +31,7 @@
 .task-title {
     font-size: 1.125rem;
     font-weight: 600;
+    margin-top: 0;
     color: #1f2937;
 }
 
