@@ -1,0 +1,52 @@
+::ng-deep .confirmation-dialog .mat-mdc-dialog-surface.mdc-dialog__surface {
+    overflow: hidden;
+    padding: 24px;
+    border-radius: 12px;
+    min-width: 400px;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+::ng-deep .confirmation-dialog .cdk-overlay-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.header-modal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    --mat-dialog-headline-padding: 9px 24px;
+    margin: 0 0 16px 0;
+    padding: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.87);
+
+    .close-icon {
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+mat-dialog-content {
+    padding: 0 0 24px 0;
+    min-width: 300px;
+    max-width: none;
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+p {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    text-align: center;
+}

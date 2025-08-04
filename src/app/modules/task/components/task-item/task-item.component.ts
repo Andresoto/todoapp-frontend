@@ -1,9 +1,10 @@
 import { DatePipe, NgClass } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatIconModule } from "@angular/material/icon";
 
+import { ConfirmationService } from "../../../../shared/services/confirmation-service/confirmation.service";
 import { Task } from "../../interfaces/task.interface";
 
 @Component({
@@ -19,8 +20,39 @@ export class TaskItemComponent {
     @Output() edit = new EventEmitter<Task>();
     @Output() delete = new EventEmitter<string>();
 
+    private confirmationService = inject(ConfirmationService);
+
     getDateBadgeClass(): string {
         if (!this.task.completed) return "badge-primary";
         return "badge-destructive";
+    }
+
+    deleteTask(): void {
+        this.confirmationService
+            .confirmDelete(
+                "Eliminar tarea",
+                `¿Estás seguro de que deseas eliminar la tarea "${this.task.title}"? Esta acción no se puede deshacer.`
+            )
+            .subscribe((confirmed: boolean) => {
+                if (confirmed) {
+                    this.delete.emit(this.task.id);
+                }
+            });
+    }
+
+    onCheckboxClick(): void {
+        const action = this.task.completed ? "marcar como pendiente" : "marcar como completada";
+        const title = this.task.completed ? "Marcar como pendiente" : "Completar tarea";
+        const description = `¿Estás seguro de que deseas ${action} la tarea "${this.task.title}"?`;
+
+        this.confirmationService
+            .openConfirmationDialog(title, description, "Confirmar", "Cancelar")
+            .subscribe((confirmed: boolean) => {
+                if (confirmed === true) {
+                    this.toggleComplete.emit(this.task);
+                } else {
+                    this.task.completed = !this.task.completed;
+                }
+            });
     }
 }

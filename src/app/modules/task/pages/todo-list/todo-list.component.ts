@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { Router } from "@angular/router";
 
+import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
 import { FilterPipe } from "../../../../shared/pipes/filter.pipe";
 import { ToastService } from "../../../../shared/services/toast.service";
 import { TaskFormModalComponent } from "../../components/task-form-modal/task-form-modal.component";
@@ -16,7 +17,16 @@ import { TaskService } from "../../services/task.service";
 @Component({
     selector: "app-todo-list",
     standalone: true,
-    imports: [TaskItemComponent, DecimalPipe, MatButtonModule, MatIconModule, MatChipsModule, FilterPipe, NgClass],
+    imports: [
+        TaskItemComponent,
+        DecimalPipe,
+        MatButtonModule,
+        MatIconModule,
+        MatChipsModule,
+        FilterPipe,
+        LoaderComponent,
+        NgClass
+    ],
     templateUrl: "./todo-list.component.html",
     styleUrl: "./todo-list.component.scss"
 })
@@ -29,6 +39,7 @@ export class TodoListComponent implements OnInit {
     userEmail = signal<string>("");
     isFormOpen = signal<boolean>(false);
     editingTask = signal<Task | null>(null);
+    isLoading = signal<boolean>(false);
     filters = signal<{ label: string; value: string }[]>([
         { label: "Todas", value: "all" },
         { label: "Pendientes", value: "pending" },
@@ -48,12 +59,15 @@ export class TodoListComponent implements OnInit {
     }
 
     getTasks() {
+        this.isLoading.set(true);
         this.taskService.getTasks().subscribe({
             next: tasks => {
                 this.tasks.set(tasks);
+                this.isLoading.set(false);
             },
             error: () => {
                 this.toastService.showError("Error al intentar cargar las tareas");
+                this.isLoading.set(false);
             }
         });
     }
@@ -74,7 +88,7 @@ export class TodoListComponent implements OnInit {
             error: () => {
                 this.toastService.showError("Error al intentar actualizar la tarea");
                 this.tasks.update(currentTasks =>
-                    currentTasks.map(item => (item.id === task.id ? { ...item, completed: !item.completed } : item))
+                    currentTasks.map(item => (item.id === task.id ? { ...item, completed: !task.completed } : item))
                 );
             }
         });

@@ -52,21 +52,25 @@
         </div>
 
         <div class="task-list">
-            @for (task of tasks() | filter: filterSelected() ; track task.id) {
-                <app-task-item
-                    [task]="task"
-                    (toggleComplete)="handleToggleComplete(task)"
-                    (edit)="openEditForm(task)"
-                    (delete)="handleDeleteTask(task.id)"
-                >
-                </app-task-item>
-            } @empty {
-                <div class="card empty-card">
-                    <div class="card-content text-center">
-                        <h3 class="empty-title">No hay tareas</h3>
-                        <p class="empty-description">Agrega tu primera tarea para empezar</p>
+            @if (isLoading()) {
+                <app-loader message="Cargando tareas..." size="large"></app-loader>
+            } @else {
+                @for (task of tasks() | filter: filterSelected() ; track task.id) {
+                    <app-task-item
+                        [task]="task"
+                        (toggleComplete)="handleToggleComplete($event)"
+                        (edit)="openEditForm(task)"
+                        (delete)="handleDeleteTask(task.id)"
+                    >
+                    </app-task-item>
+                } @empty {
+                    <div class="card empty-card">
+                        <div class="card-content text-center">
+                            <h3 class="empty-title">No hay tareas</h3>
+                            <p class="empty-description">Agrega tu primera tarea para empezar</p>
+                        </div>
                     </div>
-                </div>
+                }
             }
         </div>
     </div>

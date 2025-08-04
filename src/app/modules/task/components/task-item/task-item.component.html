@@ -1,6 +1,11 @@
 <div class="task-card" [class.completed]="task.completed">
     <div class="task-content">
-        <mat-checkbox class="task-checkbox" color="primary" [(ngModel)]="task.completed" (change)="toggleComplete.emit(task)" />
+        <mat-checkbox
+            class="task-checkbox"
+            color="primary"
+            [(ngModel)]="task.completed"
+            (click)="onCheckboxClick()"
+        />
         <div class="task-details">
             <div class="task-header">
                 <div class="task-text">
@@ -24,7 +29,7 @@
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                             />
                         </svg>
-                        {{ task.createdAt| date: "dd/MM/yyyy" }}
+                        {{ task.createdAt | date: "dd/MM/yyyy" }}
                     </span>
                 </div>
             </div>
@@ -43,11 +48,7 @@
                         <button class="icon-button" (click)="edit.emit(task)" aria-label="Editar tarea">
                             <mat-icon fontIcon="edit"></mat-icon>
                         </button>
-                        <button
-                            class="icon-button text-destructive"
-                            (click)="delete.emit(task.id)"
-                            aria-label="Eliminar tarea"
-                        >
+                        <button class="icon-button text-destructive" (click)="deleteTask()" aria-label="Eliminar tarea">
                             <mat-icon fontIcon="delete"></mat-icon>
                         </button>
                     </div>

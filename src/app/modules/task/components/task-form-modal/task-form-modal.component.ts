@@ -41,7 +41,7 @@ export class TaskFormModalComponent implements OnInit {
         }
     }
 
-    buildForm() {
+    buildForm(): void {
         this.form = this.fb.group({
             title: ["", [Validators.required]],
             description: ["", [Validators.required]],
@@ -50,7 +50,7 @@ export class TaskFormModalComponent implements OnInit {
         });
     }
 
-    onSubmit() {
+    onSubmit(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
@@ -63,7 +63,7 @@ export class TaskFormModalComponent implements OnInit {
         }
     }
 
-    createTask(formValue: TaskFormData) {
+    createTask(formValue: TaskFormData): void {
         this.taskService.createTask(formValue).subscribe({
             next: () => {
                 this.dialogRef.close(true);
@@ -76,7 +76,7 @@ export class TaskFormModalComponent implements OnInit {
         });
     }
 
-    updateTask(formValue: TaskFormData) {
+    updateTask(formValue: TaskFormData): void {
         const taskData: Partial<TaskFormData> = {
             ...formValue,
             id: this.data.id
