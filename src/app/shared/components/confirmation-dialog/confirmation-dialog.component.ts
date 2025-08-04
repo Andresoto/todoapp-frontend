@@ -24,11 +24,17 @@ export class ConfirmationDialogComponent {
         @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData
     ) {}
 
-    onConfirm(): void {
+    /**
+     * Closes the dialog with a confirmation response
+     */
+    public onConfirm(): void {
         this.dialogRef.close(true);
     }
 
-    onCancel(): void {
+    /**
+     * Closes the dialog without confirmation
+     */
+    public onCancel(): void {
         this.dialogRef.close(false);
     }
 }

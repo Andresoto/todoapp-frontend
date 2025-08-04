@@ -31,7 +31,10 @@ export class TaskFormModalComponent implements OnInit {
         this.buildForm();
     }
 
-    ngOnInit() {
+    /**
+     * Initializes the component and populates form with existing task data if editing
+     */
+    ngOnInit(): void {
         if (this.data.isEditing) {
             this.form.patchValue({
                 title: this.data.title,
@@ -41,6 +44,9 @@ export class TaskFormModalComponent implements OnInit {
         }
     }
 
+    /**
+     * Builds the reactive form with validation rules
+     */
     buildForm(): void {
         this.form = this.fb.group({
             title: ["", [Validators.required]],
@@ -50,6 +56,9 @@ export class TaskFormModalComponent implements OnInit {
         });
     }
 
+    /**
+     * Handles form submission by validating and routing to create or update methods
+     */
     onSubmit(): void {
         if (this.form.invalid) {
             this.form.markAllAsTouched();
@@ -63,6 +72,10 @@ export class TaskFormModalComponent implements OnInit {
         }
     }
 
+    /**
+     * Creates a new task via API call
+     * @param formValue - Task form data to be created
+     */
     createTask(formValue: TaskFormData): void {
         this.taskService.createTask(formValue).subscribe({
             next: () => {
@@ -76,6 +89,10 @@ export class TaskFormModalComponent implements OnInit {
         });
     }
 
+    /**
+     * Updates an existing task via API call
+     * @param formValue - Task form data to be updated
+     */
     updateTask(formValue: TaskFormData): void {
         const taskData: Partial<TaskFormData> = {
             ...formValue,

@@ -22,11 +22,18 @@ export class TaskItemComponent {
 
     private confirmationService = inject(ConfirmationService);
 
+    /**
+     * Returns CSS class for date badge based on task completion status
+     * @returns CSS class name for styling the date badge
+     */
     getDateBadgeClass(): string {
         if (!this.task.completed) return "badge-primary";
         return "badge-destructive";
     }
 
+    /**
+     * Handles task deletion with user confirmation
+     */
     deleteTask(): void {
         this.confirmationService
             .confirmDelete(
@@ -40,6 +47,9 @@ export class TaskItemComponent {
             });
     }
 
+    /**
+     * Handles checkbox click with confirmation dialog for task completion toggle
+     */
     onCheckboxClick(): void {
         const action = this.task.completed ? "marcar como pendiente" : "marcar como completada";
         const title = this.task.completed ? "Marcar como pendiente" : "Completar tarea";

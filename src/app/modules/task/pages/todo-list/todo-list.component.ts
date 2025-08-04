@@ -50,6 +50,9 @@ export class TodoListComponent implements OnInit {
     completedTasks = computed(() => this.tasks().filter(task => task.completed).length);
     totalTasks = computed(() => this.tasks().length);
 
+    /**
+     * Initializes the component by loading tasks
+     */
     ngOnInit(): void {
         this.getTasks();
     }
@@ -58,7 +61,10 @@ export class TodoListComponent implements OnInit {
         this.userEmail.set(localStorage.getItem("userEmail") || "");
     }
 
-    getTasks() {
+    /**
+     * Fetches all tasks from the API
+     */
+    getTasks(): void {
         this.isLoading.set(true);
         this.taskService.getTasks().subscribe({
             next: tasks => {
@@ -72,13 +78,21 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    onFilterChange(filterValue: string) {
+    /**
+     * Handles filter change for task display
+     * @param filterValue - Selected filter value
+     */
+    onFilterChange(filterValue: string): void {
         if (this.filterSelected() !== filterValue) {
             this.filterSelected.set(filterValue);
         }
     }
 
-    handleToggleComplete(task: Task) {
+    /**
+     * Handles task completion toggle
+     * @param task - Task to toggle completion status
+     */
+    handleToggleComplete(task: Task): void {
         this.taskService.updateTask(task).subscribe({
             next: resp => {
                 this.tasks.update(currentTasks =>
@@ -94,7 +108,11 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    handleDeleteTask(taskId: string) {
+    /**
+     * Handles task deletion
+     * @param taskId - ID of the task to delete
+     */
+    handleDeleteTask(taskId: string): void {
         this.taskService.deleteTask(taskId).subscribe({
             next: () => {
                 this.tasks.update(currentTasks => currentTasks.filter(task => task.id !== taskId));
@@ -106,12 +124,19 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    handleLogout() {
+    /**
+     * Handles user logout by clearing storage and navigating to login
+     */
+    handleLogout(): void {
         localStorage.removeItem("userId");
         this.router.navigate(["/login"]);
     }
 
-    openEditForm(task: Task) {
+    /**
+     * Opens modal for editing an existing task
+     * @param task - Task to be edited
+     */
+    openEditForm(task: Task): void {
         const dialogRef = this.dialog.open(TaskFormModalComponent, {
             data: {
                 isEditing: true,
@@ -130,7 +155,10 @@ export class TodoListComponent implements OnInit {
         });
     }
 
-    createTask() {
+    /**
+     * Opens modal for creating a new task
+     */
+    createTask(): void {
         const dialogRef = this.dialog.open(TaskFormModalComponent, {
             data: {
                 title: "",

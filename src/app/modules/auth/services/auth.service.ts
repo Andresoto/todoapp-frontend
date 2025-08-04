@@ -2,24 +2,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-export interface LoginResponse {
-    headers: {
-        normalizedNames: Record<string, any>;
-        lazyUpdate: any | null;
-    };
-    status: number;
-    statusText: string;
-    url: string;
-    ok: boolean;
-    type: number;
-    body: User;
-}
-
-export interface User {
-    id: string;
-    email: string;
-    nombre: string;
-}
+import { LoginResponse, User } from "../interfaces/user.interface";
 
 @Injectable({
     providedIn: "root"

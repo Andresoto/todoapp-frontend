@@ -28,27 +28,33 @@ import { AuthService } from "../../services/auth.service";
     styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent {
-    authService = inject(AuthService);
-    router = inject(Router);
-    fb = inject(FormBuilder);
-    dialog = inject(MatDialog);
-    toastService = inject(ToastService);
+    private readonly authService = inject(AuthService);
+    private readonly router = inject(Router);
+    private readonly fb = inject(FormBuilder);
+    private readonly dialog = inject(MatDialog);
+    private readonly toastService = inject(ToastService);
 
-    form!: FormGroup;
-    isLoading = signal(false);
-    formValid = signal(false);
+    public form!: FormGroup;
+    public isLoading = signal(false);
+    public formValid = signal(false);
 
     constructor() {
         this.buildForm();
     }
 
-    buildForm() {
+    /**
+     * Builds the login form with validations
+     */
+    private buildForm(): void {
         this.form = this.fb.group({
             email: ["", [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$")]]
         });
     }
 
-    handleSubmit() {
+    /**
+     * Handles the login form submission
+     */
+    public handleSubmit(): void {
         this.isLoading.set(true);
         const formValue = this.form.getRawValue();
         this.authService.login(formValue.email).subscribe({
@@ -70,7 +76,11 @@ export class LoginComponent {
         });
     }
 
-    registerEmail(email: string) {
+    /**
+     * Opens the registration modal for a new user
+     * @param email - Email of the user to register
+     */
+    private registerEmail(email: string): void {
         const dialogRef = this.dialog.open(RegisterModalComponent, {
             width: "450px",
             data: email

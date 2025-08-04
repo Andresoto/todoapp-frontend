@@ -1,6 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 
+import { Task } from "../interfaces/task.interface";
 import { TaskService } from "./task.service";
 
 describe("TaskService", () => {
@@ -20,13 +21,12 @@ describe("TaskService", () => {
     });
 
     it("should get tasks", () => {
-        const mockTasks = [
+        const mockTasks: Task[] = [
             {
                 id: "1",
                 title: "Test",
                 description: "desc",
-                createdAt: { _seconds: 1672531200, _nanoseconds: 0 },
-                date: new Date("2023-01-01"),
+                createdAt: new Date("2023-01-01"),
                 completed: false
             }
         ];
@@ -49,8 +49,7 @@ describe("TaskService", () => {
             id: "2",
             title: "New",
             description: "desc",
-            createdAt: { _seconds: 1672531200, _nanoseconds: 0 },
-            date: new Date("2023-01-01"),
+            createdAt: new Date("2023-01-01"),
             completed: false
         };
         service.createTask(newTask as any).subscribe(task => {
@@ -74,8 +73,7 @@ describe("TaskService", () => {
             id: "1",
             title: "Updated",
             description: "desc",
-            createdAt: { _seconds: 1672531200, _nanoseconds: 0 },
-            date: new Date("2023-01-01"),
+            createdAt: new Date("2023-01-01"),
             completed: true
         };
         service.updateTask(updateData).subscribe(task => {
