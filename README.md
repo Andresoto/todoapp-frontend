@@ -1,36 +1,113 @@
-# ATOM FE CHALLENGE TEMPLATE - ANGULAR
+# TodoApp Frontend - Angular
 
-Este proyecto es una plantilla con lo necesario para comenzar a desarrollar el front-end de la aplicación de la prueba técnica de Atom. Se base en Angular con la versión 17.3.6.
-Se ha realizado la instalación y configuración de varias dependencias necesarias para el desarrollo de la aplicación, como por ejemplo: Angular Material.
+Una aplicación moderna de gestión de tareas construida con Angular 17.3.6, con una interfaz limpia usando Angular Material y capacidades completas de gestión de tareas.
 
-## Instrucciones
-Siéntete libre de clonar este repositorio y utilizarlo como base para el desarrollo de la aplicación. Sigue las indicates de la prueba técnica para completar la aplicación y desarrolla como más te sientas cómodo.
+## 🛠️ Stack Tecnológico
 
-De igual manera puedes documentar dentro de este archivo todo lo que deseas contar sobre tu desarrollo, como por ejemplo, decisiones de diseño, problemas encontrados, etc.
+- **Framework**: Angular 17.3.6 (Componentes Standalone)
+- **Librería UI**: Angular Material
+- **Gestión de Estado**: Angular Signals
+- **Cliente HTTP**: Angular HttpClient con interceptores
+- **Enrutamiento**: Angular Router con guardias
+- **Testing**: Jest + Spectator
+- **Tipado**: TypeScript con modo estricto
+- **Herramienta de Build**: Angular CLI
+- **Estilos**: SCSS con temas de Angular Material
 
-## Comentarios sobre el desarrollo
-...
+## 📁 Estructura del Proyecto
 
-## Development server
+```
+src/
+├── app/
+│   ├── core/                    # Funcionalidad principal
+│   │   ├── guards/             # Guardias de rutas (auth, login-redirect)
+│   │   └── interceptors/       # Interceptores HTTP (user-id)
+│   ├── modules/
+│   │   ├── auth/               # Módulo de autenticación
+│   │   │   ├── components/     # Modal de registro
+│   │   │   ├── pages/          # Página de login
+│   │   │   └── services/       # Servicio de autenticación
+│   │   └── task/               # Módulo de gestión de tareas
+│   │       ├── components/     # Item de tarea, modal de formulario
+│   │       ├── pages/          # Página de lista de tareas
+│   │       ├── services/       # Servicio de tareas
+│   │       └── interfaces/     # Interfaces de tareas
+│   ├── shared/                 # Componentes y servicios compartidos
+│   │   ├── components/         # Loader, diálogo de confirmación
+│   │   ├── pipes/              # Pipe de filtrado
+│   │   └── services/           # Servicios de toast y confirmación
+│   └── assets/                 # Assets estáticos
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🔧 Instalación
 
-## Code scaffolding
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/Andresoto/todoapp-frontend.git
+   cd todoapp-frontend
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
 
-## Build
+3. **Iniciar servidor de desarrollo**
+   ```bash
+   ng serve
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+4. **Abrir en el navegador**
+   Navegar a `http://localhost:4200/`
 
-## Running unit tests
+## 🧪 Testing
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+El proyecto utiliza Jest y Spectator para testing completo:
 
-## Running end-to-end tests
+```bash
+# Ejecutar todas las pruebas
+npm test
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Ejecutar pruebas en modo watch
+npm run test:watch
 
-## Further help
+# Generar reporte de cobertura
+npm run test:coverage
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🏗️ Build
+
+```bash
+ng build
+```
+
+## Decisiones de Diseño
+
+- **Componentes Standalone**: Usando componentes standalone de Angular 17 para mejor tree-shaking
+- **Signals**: Aprovechando Angular Signals para gestión de estado reactiva
+- **Material Design**: UI consistente con componentes de Angular Material
+- **UI Optimista**: Actualizaciones inmediatas de UI con rollback en errores
+- **Diálogos de Confirmación**: Confirmaciones amigables para acciones destructivas
+- **Notificaciones Toast**: Feedback claro para todas las acciones del usuario
+
+## Estrategia de Testing
+
+- **Pruebas Unitarias**: Jest + Spectator para testing de componentes y servicios
+- **Mocking**: Mocking completo de servicios con SpyObject
+- **Cobertura**: Alta cobertura de pruebas para funcionalidad crítica
+- **Integración**: Testing de integración de componentes con dependencias apropiadas
+
+## Integración con API
+
+- Integración con API RESTful usando HttpClient
+- Inyección automática de ID de usuario vía interceptores HTTP
+- Manejo de errores con mensajes amigables al usuario
+- Estados de carga para mejor UX
+
+## Características de Rendimiento
+
+- **Lazy Loading**: División de código basada en rutas
+- **Estrategia OnPush**: Detección de cambios optimizada
+- **Valores Computados**: Propiedades computadas reactivas con Signals
+- **Tree Shaking**: Tamaño de bundle optimizado con componentes standalone
+
