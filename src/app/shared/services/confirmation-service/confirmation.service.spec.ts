@@ -25,7 +25,6 @@ describe("ConfirmationService", () => {
         service = spectator.service;
         mockDialog = spectator.inject(MatDialog);
 
-        // Create mock dialog reference
         mockDialogRef = {
             afterClosed: jest.fn(),
             close: jest.fn(),

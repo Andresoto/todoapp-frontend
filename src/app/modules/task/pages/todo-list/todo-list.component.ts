@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 
 import { LoaderComponent } from "../../../../shared/components/loader/loader.component";
 import { FilterPipe } from "../../../../shared/pipes/filter.pipe";
-import { ToastService } from "../../../../shared/services/toast.service";
+import { ToastService } from "../../../../shared/services/toast-service/toast.service";
 import { TaskFormModalComponent } from "../../components/task-form-modal/task-form-modal.component";
 import { TaskItemComponent } from "../../components/task-item/task-item.component";
 import { Task } from "../../interfaces/task.interface";

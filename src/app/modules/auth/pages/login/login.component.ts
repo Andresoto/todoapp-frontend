@@ -9,7 +9,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 
-import { ToastService } from "../../../../shared/services/toast.service";
+import { ToastService } from "../../../../shared/services/toast-service/toast.service";
 import { RegisterModalComponent } from "../../components/register-modal/register-modal.component";
 import { AuthService } from "../../services/auth.service";
 

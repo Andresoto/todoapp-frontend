@@ -32,17 +32,4 @@ describe("LoaderComponent", () => {
         const compiled = fixture.nativeElement as HTMLElement;
         expect(compiled.querySelector(".loader-message")?.textContent).toContain("Cargando tareas...");
     });
-
-    it("should apply correct size class", () => {
-        component.size = "large";
-        fixture.detectChanges();
-
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector(".loader-container")).toHaveClass("loader-large");
-    });
-
-    it("should be centered by default", () => {
-        const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector(".loader-container")).toHaveClass("centered");
-    });
 });

@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from "@angular/materia
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormField, MatInputModule } from "@angular/material/input";
 
-import { ToastService } from "../../../../shared/services/toast.service";
+import { ToastService } from "../../../../shared/services/toast-service/toast.service";
 import { TaskFormData } from "../../interfaces/task.interface";
 import { TaskService } from "../../services/task.service";
 
