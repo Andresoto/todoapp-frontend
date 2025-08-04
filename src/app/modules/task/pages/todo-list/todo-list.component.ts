@@ -129,6 +129,7 @@ export class TodoListComponent implements OnInit {
      */
     handleLogout(): void {
         localStorage.removeItem("userId");
+        localStorage.removeItem("userEmail");
         this.router.navigate(["/login"]);
     }
 
